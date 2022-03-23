@@ -36,6 +36,11 @@ Ultra-precision machine tools are the foundation for ultra-precision manufacturi
 - "simple_1D-CNN.ipynb" -> Benchmarking models. To compare and contrast the multi-output model performance with the single output model performance
 
 
+## Miscellaneous
+
+**Training Data**
+
+- The data used to train the models is not placed in this repository. If there is a need to get the training data and if there are questions on the DAQ process, please reach out to the owner of this repository. Thank you 
 
   
   
