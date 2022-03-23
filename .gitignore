@@ -1,2 +1,5 @@
 # Apple file system
 .DS_Store
+
+# Huge datasets
+**/training_data
