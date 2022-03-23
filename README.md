@@ -35,6 +35,10 @@ Ultra-precision machine tools are the foundation for ultra-precision manufacturi
 
 - "simple_1D-CNN.ipynb" -> Benchmarking models. To compare and contrast the multi-output model performance with the single output model performance
 
+- "training_data" -> Data after being parsed by the G-code interpreter application. The directory contains .csv files that are categorized by the axis in motion, with respect to a particular feedrate and machine components active at any point in time.
+
+- "model_data" -> The preprocessed data created by the file "data_prep.ipynb". It is a pickled dictionary of numpy arrays containing the model preprocessed model training data.
+
 
 ## Miscellaneous
 
