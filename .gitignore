@@ -3,3 +3,7 @@
 
 # Huge datasets
 **/training_data
+**/model_data
+
+# Jupyter-pycharm
+.ipynb_checkpoints
