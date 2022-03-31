@@ -1,0 +1,3 @@
+[submodule "flukenorma4000_daq"]
+	path = flukenorma4000_daq
+	url = https://github.com/vigneshuw/flukenorma4000_daq.git
