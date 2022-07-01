@@ -9,8 +9,7 @@ import numpy as np
 def naive_resampler(data, proportion=1):
 
     """
-    The naive_resampler used a oversampling technique to increase the proportion of your data within a class
-
+    The naive_resampler is an oversampling technique to increase the proportion of your data within a class
     :param data: Should be a dictionary with keys as classes. The values should be a numpy array with 0 dimension being
                     the count of data
     :param proportion: Proportion by which the other classes should be increased

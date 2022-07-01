@@ -9,19 +9,20 @@ import seaborn as sns
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
-import kerastuner as kt
+import keras_tuner as kt
 
 
 def build_1DCNN_model(layers, counts, act_func, input_shape):
 
     # Ensure that the arguments entered are correct
     assert (isinstance(layers, tuple) and isinstance(counts, tuple) and isinstance(input_shape,
-            tuple) and isinstance(act_func, tuple)), ("The layers, counts, act_func and input_shape arguments of the function should be tuples")
+            tuple) and isinstance(act_func, tuple)), "The layers, counts, act_func and input_shape arguments of the " \
+                                                     "function should be tuples"
     assert (len(layers) == len(counts)
-            ), ("The length of the layer and counts arguments must be equal")
+            ), "The length of the layer and counts arguments must be equal"
     for i in zip(layers, counts):
-        assert (isinstance(i[1], tuple)), ("The items within counts must be a tuple")
-        assert (isinstance(i[0], str)), ("The items within the layers argument must be a string")
+        assert (isinstance(i[1], tuple)), "The items within counts must be a tuple"
+        assert (isinstance(i[0], str)), "The items within the layers argument must be a string"
 
     # Creating a sequential model
     model = tf.keras.models.Sequential()
@@ -34,13 +35,15 @@ def build_1DCNN_model(layers, counts, act_func, input_shape):
         # The first layer should contain the input shape
         if index == 0:
             feature_maps, kernel = counts[index]
-            model.add(keras.layers.Conv1D(feature_maps, kernel, activation=act_func[0], padding="same", input_shape=input_shape))
+            model.add(keras.layers.Conv1D(feature_maps, kernel, activation=act_func[0], padding="same",
+                                          input_shape=input_shape))
             continue
             
         # If it is a convolution layer
         if layer == "Conv1D":
             feature_maps, kernel = counts[index]
-            model.add(keras.layers.Conv1D(feature_maps, kernel, activation=act_func[0], padding='same', kernel_regularizer=keras.regularizers.l1_l2(l1=0.01, l2=0.01)))
+            model.add(keras.layers.Conv1D(feature_maps, kernel, activation=act_func[0], padding='same',
+                                          kernel_regularizer=keras.regularizers.l1_l2(l1=0.01, l2=0.01)))
         # For the layer BatchNormalization
         elif layer == "BatchNormalization":
             value = counts[index][0]
@@ -69,7 +72,8 @@ def build_1DCNN_model(layers, counts, act_func, input_shape):
             if layers[index - 1] == "Flatten" or flatten_layer_check:
                 flatten_layer_check = 1
                 neurons = counts[index][0]
-                model.add(keras.layers.Dense(neurons, activation=act_func[0], kernel_regularizer=keras.regularizers.l1_l2(l1=0.001, l2=0.001)))
+                model.add(keras.layers.Dense(neurons, activation=act_func[0],
+                                             kernel_regularizer=keras.regularizers.l1_l2(l1=0.001, l2=0.001)))
             else:
                 sys.stdout.write("Dense layer applied before a flattening layer")
                 sys.exit(1)
@@ -87,7 +91,8 @@ def build_1DCNN_model(layers, counts, act_func, input_shape):
         # For the layer Dense at the end
         elif (layer == "Dense") and (index == len(layers) - 1):
             classes = counts[index][0]
-            model.add(keras.layers.Dense(classes, activation=act_func[1], kernel_regularizer=keras.regularizers.l1_l2(l1=0.001, l2=0.001)))
+            model.add(keras.layers.Dense(classes, activation=act_func[1],
+                                         kernel_regularizer=keras.regularizers.l1_l2(l1=0.001, l2=0.001)))
         else:
             sys.stdout.write(f'The mentioned layer is not available -- {layer}')
             sys.exit(1)
@@ -113,8 +118,10 @@ class ModelTuner(kt.HyperModel):
         # The MainUnit that gets repeated
         for i in range(hp.Int("main_units", 3, 10)):
             for j in range(hp.Int("layers", 2, 5)):
-                model.add(tf.keras.layers.Conv1D(hp.Choice("feature_units_" + str(i) + "-" + str(j), [128, 256, 512, 1024]), 
-                                                hp.Int("kernel_units_" + str(i) + "-" + str(j), 3, 7, step=2), activation="relu", padding="same"))
+                model.add(tf.keras.layers.Conv1D(hp.Choice("feature_units_" + str(i) + "-" + str(j),
+                                                           [128, 256, 512, 1024]),
+                                                hp.Int("kernel_units_" + str(i) + "-" + str(j), 3, 7, step=2),
+                                                 activation="relu", padding="same"))
             model.add(tf.keras.layers.BatchNormalization())
             model.add(tf.keras.layers.MaxPooling1D(hp.Int("maxpool_units_" + str(i), 2, 6, step=2)))
             
