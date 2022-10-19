@@ -4,7 +4,7 @@ This repository contains the code base that was used for the study conducted in 
 
 This study was conducted at the University of Wisconsin-Madison. For more details please visit [MINLab](https://min.me.wisc.edu/) and/or [Smart Manufacturing at UW-Madison](https://smartmfg.me.wisc.edu/)
 
-DOI Link:- 
+DOI Link:- https://www.doi.org/10.1007/s10845-022-02030-y
 
 
 ## Abstract
